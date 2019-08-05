@@ -1,0 +1,12 @@
+name: bagel
+
+imports:
+
+version_control:
+
+
+    - bagel/.*:
+        github: dfki-ric/$PACKAGE_BASENAME.git
+
+    - tools/xrock_bagel_tools:
+        github: dfki-rick/xrock_bagel_tools

@@ -1,0 +1,11 @@
+cmake_package 'bagel/bagel_gui'
+cmake_package 'bagel/osg_graph_viz'
+cmake_package 'bagel/c_bagel'
+cmake_package 'bagel/bagel_unit_testing'
+cmake_package 'bagel/cpp_bagel_wrapper'
+cmake_package 'bagel/BagelMARS'
+cmake_package 'tools/xrock_bagel_tools'
+
+cmake_package 'bagel/xrock_gui_model'
+import_package 'bagel/bagel_db'
+import_package 'bagel/bagel_magic'
