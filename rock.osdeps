@@ -1,0 +1,4 @@
+python-yaml:
+    debian,ubuntu: python-yaml
+    opensuse: python-yaml
+  
