@@ -2,3 +2,7 @@ python-yaml:
     debian,ubuntu: python-yaml
     opensuse: python-yaml
     gentoo: dev-python/pyyaml
+
+python-markdown:
+    debian,ubuntu: python3-markdown
+    opensuse: python3-markdown
