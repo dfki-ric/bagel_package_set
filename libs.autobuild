@@ -9,3 +9,7 @@ cmake_package 'tools/xrock_bagel_tools'
 cmake_package 'bagel/xrock_gui_model'
 import_package 'bagel/bagel_db'
 import_package 'bagel/bagel_magic'
+
+cmake_package 'external/cpr' do |pkg|
+    pkg.depends_on 'curl'
+end
