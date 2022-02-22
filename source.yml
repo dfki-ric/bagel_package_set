@@ -10,3 +10,9 @@ version_control:
 
     - tools/xrock_bagel_tools:
         github: dfki-ric/xrock_bagel_tools
+
+    - external/cpr:
+      github: whoshuu/cpr
+      commit: feebd2fd5467e219cf124acb5de3f8eee0d0970b
+      patches:
+        - [$AUTOPROJ_SOURCE_DIR/patches/cpr.patch, 0]
