@@ -1,0 +1,76 @@
+diff -urN ../cpr_orig/CMakeLists.txt ./CMakeLists.txt
+--- ../cpr_orig/CMakeLists.txt	2019-07-08 09:49:45.640033362 +0200
++++ ./CMakeLists.txt	2019-07-08 10:04:18.994871575 +0200
+@@ -11,6 +11,7 @@
+ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
+ 
+ project(cpr CXX)
++add_definitions(-fPIC)
+ 
+ if(NOT ${CMAKE_VERSION} LESS 3.2)
+     set(CMAKE_CXX_STANDARD 11)
+@@ -61,8 +62,8 @@
+ message(STATUS "C++ Requests CMake Options")
+ message(STATUS "=======================================================")
+ cpr_option(USE_SYSTEM_CURL
+-    "If ON, this project will look in the system paths for an installed curl library" OFF)
+-cpr_option(BUILD_CPR_TESTS "Set to ON to build cpr tests." ON)
++    "If ON, this project will look in the system paths for an installed curl library" ON)
++cpr_option(BUILD_CPR_TESTS "Set to ON to build cpr tests." OFF)
+ cpr_option(GENERATE_COVERAGE "Set to ON to generate coverage reports." OFF)
+ cpr_option(CPR_CURL_NOSIGNAL "Set to ON to disable use of signals in libcurl." OFF)
+ cpr_option(USE_SYSTEM_GTEST
+@@ -74,8 +75,22 @@
+     enable_testing()
+ endif()
+ 
+-add_subdirectory(opt)
++#add_subdirectory(opt)
+ add_subdirectory(cpr)
+ if(BUILD_CPR_TESTS)
+     add_subdirectory(test)
+ endif()
++
++file(GLOB public_headers ${CPR_INCLUDE_DIRS}/cpr/[a-z]*.h)
++
++install(
++	FILES ${public_headers}
++	DESTINATION include/cpr
++)
++
++set(PC_FILE ${CMAKE_BINARY_DIR}/cpr.pc)
++configure_file("cpr.pc.in" ${PC_FILE} @ONLY)
++install(FILES ${PC_FILE} DESTINATION lib/pkgconfig)
++
++
++
+diff -urN ../cpr_orig/cpr/CMakeLists.txt ./cpr/CMakeLists.txt
+--- ../cpr_orig/cpr/CMakeLists.txt	2019-07-08 09:49:45.640033362 +0200
++++ ./cpr/CMakeLists.txt	2019-07-08 10:04:31.702801125 +0200
+@@ -43,6 +43,10 @@
+ target_link_libraries(${CPR_LIBRARIES}
+     ${CURL_LIBRARIES})
+ 
++install(TARGETS ${CPR_LIBRARIES}
++	LIBRARY DESTINATION lib
++	ARCHIVE DESTINATION lib
++)
+ if(NOT (CMAKE_VERSION VERSION_LESS 3.0))
+     target_include_directories(${CPR_LIBRARIES}
+         PUBLIC
+diff -urN ../cpr_orig/cpr.pc.in ./cpr.pc.in
+--- ../cpr_orig/cpr.pc.in	1970-01-01 01:00:00.000000000 +0100
++++ ./cpr.pc.in	2019-07-08 09:51:48.915243167 +0200
+@@ -0,0 +1,12 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++exec_prefix=@CMAKE_INSTALL_PREFIX@
++libdir=${prefix}/lib
++includedir=${prefix}/include/
++
++Name: Curl for People
++Description: C++ Requests: Curl for People, a spiritual port of Python Requests
++Version: @PROJECT_VERSION@
++Libs: -L${libdir} -lcpr -lcurl
++
++Cflags: -I${includedir}
++
