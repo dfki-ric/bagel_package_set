@@ -11,5 +11,5 @@ import_package 'bagel/bagel_db'
 import_package 'bagel/bagel_magic'
 
 cmake_package 'external/cpr' do |pkg|
-    pkg.depends_on 'curl'
+    pkg.depends_on 'curl4-openssl'
 end
