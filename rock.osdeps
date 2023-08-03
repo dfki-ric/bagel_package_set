@@ -6,3 +6,7 @@ python-yaml:
 python-markdown:
     debian,ubuntu: python3-markdown
     opensuse: python3-markdown
+
+curl4-openssl:
+    ubuntu,debian: ["libcurl4-openssl-dev"]
+    msys: libcurl-devel
