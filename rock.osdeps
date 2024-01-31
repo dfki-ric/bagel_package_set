@@ -10,3 +10,6 @@ python-markdown:
 curl4-openssl:
     ubuntu,debian: ["libcurl4-openssl-dev"]
     msys: libcurl-devel
+
+curl4-gnutls:
+    ubuntu,debian: ["libcurl4-gnutls-dev"]
