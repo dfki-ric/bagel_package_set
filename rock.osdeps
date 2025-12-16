@@ -1,5 +1,11 @@
+qt4-webkit:
+    debian: libqtwebkit-dev
+    ubuntu:
+        '18.04,20.04': libqtwebkit-dev
+	default: ignore
+
 python-yaml:
-    debian,ubuntu: python-yaml
+    debian,ubuntu: python3-yaml
     opensuse: python-yaml
     gentoo: dev-python/pyyaml
 
