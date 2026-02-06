@@ -10,7 +10,19 @@ cmake_package 'bagel/xrock_gui_model'
 import_package 'bagel/bagel_db'
 import_package 'bagel/bagel_magic'
 
+# For Ubuntu <= 22.04 several other OS-packages depend hard on curl4-gnutls
+# For Ubuntu 24.04 curl4-openssl is the default curl4 library
+USE_CURL_GNUTLS = false
+only_on *(['ubuntu'].product ['18.04','20.04','22.04']) do
+    USE_CURL_GNUTLS = true
+end
+
 cmake_package 'external/cpr' do |pkg|
-    pkg.depends_on 'curl4-openssl'
-    pkg.define "CMAKE_USE_OPENSSL", "ON"
-  end
+    if USE_CURL_GNUTLS
+        pkg.depends_on 'curl4-gnutls'
+        pkg.define "CMAKE_USE_OPENSSL", "OFF"
+    else
+        pkg.depends_on 'curl4-openssl'
+        pkg.define "CMAKE_USE_OPENSSL", "ON"
+    end
+end
